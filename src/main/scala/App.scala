@@ -7,5 +7,7 @@ object App {
       .appName("Spark First Example")
       .master("local[*]")
       .getOrCreate()
+    val df = spark.read.json("resources/people.json")
+    df.show()
   }
 }
