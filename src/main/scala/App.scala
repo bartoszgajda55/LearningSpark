@@ -1,5 +1,11 @@
+import org.apache.spark.sql.SparkSession
+
 object App {
   def main(args: Array[String]): Unit = {
-    println("Hello World")
+    val spark = SparkSession
+      .builder()
+      .appName("Spark First Example")
+      .master("local[*]")
+      .getOrCreate()
   }
 }
