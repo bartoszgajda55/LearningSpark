@@ -20,5 +20,19 @@ object App {
     df.select($"name", $"age" + 1).show()
     df.filter($"age" > 21).show()
     df.groupBy("age").count().show()
+
+    df.createOrReplaceTempView("people")
+    val sqlDF = spark.sql("SELECT * FROM people")
+    sqlDF.show()
+
+    // Creating DataSets
+    val primitiveDS = Seq(1, 2, 3).toDS()
+    primitiveDS.map(_ + 1).collect()
+
+    case class Person(name: String, age: Long)
+
+    val path = "resources/people.json"
+//    val peopleDS = spark.read.json(path).as[Person]
+//    peopleDS.show()
   }
 }
