@@ -9,5 +9,12 @@ object App {
       .getOrCreate()
     val df = spark.read.json("resources/people.json")
     df.show()
+
+    import spark.implicits._
+    df.printSchema()
+    df.select("name")
+    df.select($"name", $"age" + 1).show()
+    df.filter($"age" > 21).show()
+    df.groupBy("age").count().show()
   }
 }
