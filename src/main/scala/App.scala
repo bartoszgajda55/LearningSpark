@@ -1,4 +1,5 @@
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.types._
 import org.apache.log4j.Logger
 import org.apache.log4j.Level
 
@@ -34,5 +35,18 @@ object App {
     val path = "resources/people.json"
 //    val peopleDS = spark.read.json(path).as[Person]
 //    peopleDS.show()
+
+    val peopleDF = spark.sparkContext
+      .textFile("resources/people.txt")
+      .map(_.split(", "))
+      .map(attributes => Person(attributes(0), attributes(1).trim.toInt))
+      .toDF()
+
+    peopleDF.createOrReplaceTempView("people")
+    val teenagersDF = spark.sql("SELECT name, age FROM people WHERE age BETWEEN 13 AND 19")
+    // Access field by index
+    teenagersDF.map(teenager => "Name: " + teenager(0)).show()
+    // Access field by name
+    teenagersDF.map(teenager => "Name: " + teenager.getAs[String]("name")).show()
   }
 }
