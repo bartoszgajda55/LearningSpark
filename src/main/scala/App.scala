@@ -50,5 +50,12 @@ object App {
     teenagersDF.map(teenager => "Name: " + teenager.getAs[String]("name")).show()
 
     spark.udf.register("myAverage", UserDefinedAggregate)
+
+    val df2 = spark.read.json("resources/employees.json")
+    df2.createOrReplaceTempView("employees")
+    df2.show()
+
+    val result = spark.sql("SELECT myAverage(salary) as average_salary FROM employees")
+    result.show()
   }
 }
