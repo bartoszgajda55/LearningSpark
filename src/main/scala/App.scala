@@ -48,5 +48,7 @@ object App {
     teenagersDF.map(teenager => "Name: " + teenager(0)).show()
     // Access field by name
     teenagersDF.map(teenager => "Name: " + teenager.getAs[String]("name")).show()
+
+    spark.udf.register("myAverage", UserDefinedAggregate)
   }
 }
