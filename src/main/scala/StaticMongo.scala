@@ -6,8 +6,8 @@ object StaticMongo {
     val spark = SparkSession.builder()
       .appName("Spark Streaming From Kafka")
       .master("local[*]")
-      .config("spark.mongodb.input.uri", "mongodb://127.0.0.1/spark.FirstCollection")
-      .config("spark.mongodb.output.uri", "mongodb://127.0.0.1/spark.FirstCollection")
+      .config("spark.mongodb.input.uri", "mongodb://root:example@localhost:27018/spark.FirstCollection?authSource=admin")
+      .config("spark.mongodb.output.uri", "mongodb://root:example@localhost:27018/spark.FirstCollection?authSource=admin")
       .getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
 
