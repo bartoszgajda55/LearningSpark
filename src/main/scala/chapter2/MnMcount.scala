@@ -10,13 +10,14 @@ object MnMcount {
     val spark = SparkSession
       .builder
       .appName("MnMCount")
+      .master("local[1]")
       .getOrCreate()
-    if (args.length < 1) {
-      print("Usage: MnMcount <mnm_file_dataset>")
-      sys.exit(1)
-    }
+//    if (args.length < 1) {
+//      print("Usage: MnMcount <mnm_file_dataset>")
+//      sys.exit(1)
+//    }
     // Get the M&M data set filename
-    val mnmFile = args(0)
+    val mnmFile = "data/mnm_dataset.csv"
     // Read the file into a Spark DataFrame
     val mnmDF = spark.read.format("csv")
       .option("header", "true")
