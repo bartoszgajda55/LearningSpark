@@ -1,4 +1,4 @@
-name := "main/scala/chapter2"
+name := "LearningSpark"
 
 version := "0.0.1"
 
